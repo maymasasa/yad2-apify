@@ -1,0 +1,10 @@
+{
+    "startUrls": [
+        { "url": "https://www.yad2.co.il/vehicles/cars" }
+    ],
+    "maxPagesPerSearch": 3,
+    "maxRequestsPerCrawl": 100,
+    "includeItemDetails": true,
+    "maxConcurrency": 3,
+    "debugLog": false
+}

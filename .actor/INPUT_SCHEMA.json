@@ -1,0 +1,70 @@
+{
+  "title": "Yad2 Cars Scraper Input",
+  "description": "Scrapes car listings from Yad2 (yad2.co.il) search result pages. Extracts listing data, handles pagination, optionally enriches from detail pages, and pushes normalized records to the Apify Dataset.",
+  "type": "object",
+  "schemaVersion": 1,
+  "required": ["startUrls"],
+  "properties": {
+    "startUrls": {
+      "title": "Start URLs",
+      "description": "One or more Yad2 car search result URLs to scrape (e.g. https://www.yad2.co.il/vehicles/cars). Each URL should be a valid Yad2 vehicles/cars search page with optional filters.",
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "editor": "requestListSources",
+      "prefill": [
+        { "url": "https://www.yad2.co.il/vehicles/cars" }
+      ]
+    },
+    "maxPagesPerSearch": {
+      "title": "Max Pages Per Search",
+      "description": "Maximum number of pagination pages to crawl per start URL. The start URL counts as page 1.",
+      "type": "integer",
+      "default": 10,
+      "minimum": 1,
+      "maximum": 100,
+      "editor": "number"
+    },
+    "maxRequestsPerCrawl": {
+      "title": "Max Requests Per Crawl",
+      "description": "Upper bound on the total number of HTTP requests made during the entire actor run. Use this to control costs and run duration.",
+      "type": "integer",
+      "default": 1000,
+      "minimum": 1,
+      "maximum": 100000,
+      "editor": "number"
+    },
+    "proxyConfiguration": {
+      "title": "Proxy Configuration",
+      "description": "Apify proxy settings. Recommended to use residential proxies for Yad2 to avoid bot detection.",
+      "type": "object",
+      "editor": "proxy",
+      "sectionCaption": "Proxy and Browser Configuration"
+    },
+    "includeItemDetails": {
+      "title": "Include Item Details",
+      "description": "When enabled, the actor fetches each listing's detail page to enrich the output with additional fields like description, phone number, test date, and vehicle condition. Disabling this speeds up the crawl but produces less complete records.",
+      "type": "boolean",
+      "default": true,
+      "editor": "checkbox",
+      "sectionCaption": "Output Options"
+    },
+    "maxConcurrency": {
+      "title": "Max Concurrency",
+      "description": "Maximum number of concurrent HTTP requests. Lower values reduce the chance of being blocked but slow down the crawl.",
+      "type": "integer",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 50,
+      "editor": "number"
+    },
+    "debugLog": {
+      "title": "Debug Log",
+      "description": "When enabled, each output record includes a raw_data field containing the original unprocessed listing object. Useful for debugging but increases dataset size.",
+      "type": "boolean",
+      "default": false,
+      "editor": "checkbox"
+    }
+  }
+}
